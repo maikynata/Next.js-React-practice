@@ -5,7 +5,7 @@ function Header({ title }) {
 }
  
 export default function HomePage() {
-  const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+  const names = ['Ada language', 'Go Language', 'Mongo DB'];
  
  
  
@@ -13,7 +13,7 @@ export default function HomePage() {
  
   return (
     <div>
-      <Header title="Develop. Preview. Ship." />
+      <Header title="Develop. Preview. Deliver!" />
       <ul>
         {names.map((name) => (
           <li key={name}>{name}</li>
