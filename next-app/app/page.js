@@ -5,11 +5,7 @@ function Header({ title }) {
 }
  
 export default function HomePage() {
-  const names = ['Ada language', 'Go Language', 'Mongo DB'];
- 
- 
- 
- 
+  const names = ['Ada Language', 'Go Language', 'Python Language'];
  
   return (
     <div>
