@@ -3,13 +3,22 @@ import './App.css'
 import './ParentComponent'
 import ParentComponent from './ParentComponent'
 
-function App() {
+function App(props) {
 
   const users = [
     { id: 1, name: 'Nathan', role: 'Web Developer' },
     { id: 2, name: 'John', role: 'Web Designer' },
     { id: 3, name: 'Jane', role: 'Team Leader' },
   ]
+
+  const { user } = props
+  const newEmails = 2
+
+  let button = <button>Login</button>
+
+  if (user) {
+    button = <button>Logout</button>
+  }
   
   return (
     <>
@@ -27,8 +36,14 @@ function App() {
           )
         })
       }
+      {newEmails > 0 &&
+        <h2>
+          You have {newEmails} new emails in your inbox.
+        </h2>
+      }
       </ul>
       <ParentComponent/>
+      { user? <button>Logout</button> : <button>Login</button> }
     </>
 
   )
