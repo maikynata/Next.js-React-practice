@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import './ParentComponent'
 import ParentComponent from './ParentComponent'
+import HideParagraph from './HideParagraph'
 
 function App(props) {
 
@@ -44,6 +45,9 @@ function App(props) {
       </ul>
       <ParentComponent/>
       { user? <button>Logout</button> : <button>Login</button> }
+
+      <HideParagraph/>
+
     </>
 
   )
