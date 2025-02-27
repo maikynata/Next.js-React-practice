@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
-import { Weather, weatherData } from '../../data/weatherData';
+import { weatherData } from '../../data/weatherData';
 import WeatherCard from '../WeatherCard';
 
-const WeatherList: React.FC = () => {
+const WeatherList = () => {
+
+  const [searchedCity, setSearchedCity] = useState<string>('');
+
+  const filteredCity = weatherData.filter(city => {
+    const matchedCity = city.city.toLowerCase().includes(searchedCity.toLowerCase());
+    return matchedCity;
+  });
+
+  const handleClearSearch = () => {
+    setSearchedCity(''); 
+  }
+
 
   return (
     <div className="layout-column align-items-center justify-content-start weather-list" data-testid="weather-list">
@@ -11,13 +23,13 @@ const WeatherList: React.FC = () => {
       <div className="card w-300 pt-20 pb-5 mt-5">
         <section className="layout-row align-items-center justify-content-center mt-20 mr-20 ml-20">
           <input
-          
             type="text"
             placeholder="Search city"
-            onChange={() => {}}
+            value={searchedCity}
+            onChange={(e) => setSearchedCity(e.target.value)}
             data-testid="search-input"
           />
-          <button onClick={() => {}} data-testid="clear-search-button">
+          <button onClick={() => handleClearSearch()} data-testid="clear-search-button">
             Clear search
           </button>
         </section>
@@ -31,14 +43,16 @@ const WeatherList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <WeatherCard
-              key={6}
-              weather={weatherData[5]}
-              unit={"C"}
-              onAddFavorite={() => {}}
-              onRemoveFavorite={() => {}}
-              isFavorite={false}
-            />
+              {filteredCity.map((city) => (
+                <WeatherCard
+                  key={city.id}
+                  weather={city}
+                  unit={"C"}
+                  onAddFavorite={() => {}}
+                  onRemoveFavorite={() => {}}
+                  isFavorite={false}
+                />
+              ))}
           </tbody>
         </table>
         <section className="layout-row align-items-center justify-content-center mt-20 mr-20 ml-20">

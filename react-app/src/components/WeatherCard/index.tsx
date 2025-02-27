@@ -2,7 +2,7 @@ import React from 'react';
 import "./index.css";
 
 
-const WeatherCard: React.FC<any> = ({
+const WeatherCard = ({
   weather,
   unit,
   onAddFavorite,
@@ -13,10 +13,10 @@ const WeatherCard: React.FC<any> = ({
   const handleFavoriteClick = () => {};
 
   return (
-    <tr className="weather-card" data-testid={`weather-card-${weather.id}`}>
-      <td>Moscow</td>
-      <td>5°C</td>
-      <td>Snowy</td>
+    <tr className="weather-card">
+      <td>{weather.city}</td>
+      <td>{weather.temperature}</td>
+      <td>{weather.description}</td>
       <td>
         <button onClick={handleFavoriteClick} data-testid={`weather-card-action-${weather.id}`}>
           Add to favorites

@@ -1,6 +1,6 @@
 
 
-export const weatherData: any[] = [
+export const weatherData = [
   { id: 1, city: 'New York', temperature: 18, description: 'Sunny' },
   { id: 2, city: 'London', temperature: 12, description: 'Cloudy' },
   { id: 3, city: 'Paris', temperature: 16, description: 'Rainy' },
