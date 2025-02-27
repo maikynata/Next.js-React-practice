@@ -15,7 +15,6 @@ const WeatherList = () => {
     setSearchedCity(''); 
   }
 
-
   return (
     <div className="layout-column align-items-center justify-content-start weather-list" data-testid="weather-list">
       <h3>Dashboard</h3>
@@ -45,14 +44,14 @@ const WeatherList = () => {
           <tbody>
             {
               searchedCity === '' ?
-                <p className="text-center text-gray-500 mt-4"></p>
+                <></>
                 :
                 filteredCity.map((city) => (
                   <WeatherCard
                     key={city.id}
                     weather={city}
                     unit={"C"}
-                    onAddFavorite={() => { }}
+                    onAddFavorite={() => {city}}
                     onRemoveFavorite={() => { }}
                     isFavorite={false}
                   />

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./index.css";
-
 
 const WeatherCard = ({
   weather,
@@ -10,7 +9,19 @@ const WeatherCard = ({
   isFavorite,
 }) => {
 
-  const handleFavoriteClick = () => {};
+  const [favoriteCities, setFavoriteCities] = useState<any>([]);
+
+  const handleFavoriteClick = (onAddFavorite) => {
+    
+    const updatedFavorites = [
+      ...favoriteCities,
+      {id: onAddFavorite.id }
+    ];
+    setFavoriteCities(updatedFavorites);
+    console.log('fav: ', updatedFavorites);
+
+    onAddFavorite(updatedFavorites);
+  };
 
   return (
     <tr className="weather-card">
@@ -18,7 +29,7 @@ const WeatherCard = ({
       <td>{weather.temperature}</td>
       <td>{weather.description}</td>
       <td>
-        <button onClick={handleFavoriteClick} data-testid={`weather-card-action-${weather.id}`}>
+        <button onClick={() => handleFavoriteClick(onAddFavorite)}>
           Add to favorites
         </button>
       </td>
