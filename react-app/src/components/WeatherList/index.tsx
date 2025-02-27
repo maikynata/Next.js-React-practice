@@ -43,16 +43,21 @@ const WeatherList = () => {
             </tr>
           </thead>
           <tbody>
-              {filteredCity.map((city) => (
-                <WeatherCard
-                  key={city.id}
-                  weather={city}
-                  unit={"C"}
-                  onAddFavorite={() => {}}
-                  onRemoveFavorite={() => {}}
-                  isFavorite={false}
-                />
-              ))}
+            {
+              searchedCity === '' ?
+                <p className="text-center text-gray-500 mt-4"></p>
+                :
+                filteredCity.map((city) => (
+                  <WeatherCard
+                    key={city.id}
+                    weather={city}
+                    unit={"C"}
+                    onAddFavorite={() => { }}
+                    onRemoveFavorite={() => { }}
+                    isFavorite={false}
+                  />
+                ))
+            }
           </tbody>
         </table>
         <section className="layout-row align-items-center justify-content-center mt-20 mr-20 ml-20">
