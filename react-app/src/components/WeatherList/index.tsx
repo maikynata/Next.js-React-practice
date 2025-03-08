@@ -5,6 +5,7 @@ import WeatherCard from '../WeatherCard';
 const WeatherList = () => {
 
   const [searchedCity, setSearchedCity] = useState<string>('');
+  const [favoriteCities, setFavoriteCities] = useState<any>([]);
 
   const filteredCity = weatherData.filter(city => {
     const matchedCity = city.city.toLowerCase().includes(searchedCity.toLowerCase());
@@ -14,6 +15,21 @@ const WeatherList = () => {
   const handleClearSearch = () => {
     setSearchedCity(''); 
   }
+
+  const handleAddFavorite = (weather) => {
+    setFavoriteCities((prevFavorites) => {
+      if (prevFavorites.some((city) => city.id === weather.id)) {
+        return prevFavorites;
+      }
+      return [...prevFavorites, weather];
+    });
+  };
+
+  const handleRenoveFavorite = (weather) => {
+    setFavoriteCities((prevFavorites) => {
+      return prevFavorites.filter((city) => city.id !== weather.id);
+    });
+  };
 
   return (
     <div className="layout-column align-items-center justify-content-start weather-list" data-testid="weather-list">
@@ -51,7 +67,7 @@ const WeatherList = () => {
                     key={city.id}
                     weather={city}
                     unit={"C"}
-                    onAddFavorite={() => {city}}
+                    onAddFavorite={handleAddFavorite}
                     onRemoveFavorite={() => { }}
                     isFavorite={false}
                   />
@@ -77,6 +93,16 @@ const WeatherList = () => {
             </tr>
           </thead>
           <tbody>
+          {favoriteCities.map((weather) => (
+            <tr key={weather.id}>
+              <td>{weather.city}</td>
+              <td>{weather.temperature}</td>
+              <td>{weather.description}</td>
+              <td>
+                <button onClick={() => handleRenoveFavorite(weather)}>Remove</button>
+              </td>
+            </tr>
+          ))}
           </tbody>
         </table>
       </div>
