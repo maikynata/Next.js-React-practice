@@ -6,6 +6,7 @@ const WeatherList = () => {
 
   const [searchedCity, setSearchedCity] = useState<string>('');
   const [favoriteCities, setFavoriteCities] = useState<any>([]);
+  const [unit, setUnit] = useState<string>('C');
 
   const filteredCity = weatherData.filter(city => {
     const matchedCity = city.city.toLowerCase().includes(searchedCity.toLowerCase());
@@ -25,11 +26,19 @@ const WeatherList = () => {
     });
   };
 
-  const handleRenoveFavorite = (weather) => {
+  const handleRemoveFavorite = (weather) => {
     setFavoriteCities((prevFavorites) => {
       return prevFavorites.filter((city) => city.id !== weather.id);
     });
   };
+
+  const toggleUnit = () => {
+    setUnit(unit === 'C' ? 'F' : 'C');
+  };
+
+  const toFahrenheit = (unit) => {
+    return (unit * 9/5) + 32;
+  };    
 
   return (
     <div className="layout-column align-items-center justify-content-start weather-list" data-testid="weather-list">
@@ -66,7 +75,7 @@ const WeatherList = () => {
                   <WeatherCard
                     key={city.id}
                     weather={city}
-                    unit={"C"}
+                    unit={unit}
                     onAddFavorite={handleAddFavorite}
                     onRemoveFavorite={() => { }}
                     isFavorite={false}
@@ -76,8 +85,8 @@ const WeatherList = () => {
           </tbody>
         </table>
         <section className="layout-row align-items-center justify-content-center mt-20 mr-20 ml-20">
-          <button onClick={() => {}} data-testid="unit-change-button" className="outlined">
-            Switch to {'Celsius'}
+          <button onClick={toggleUnit} data-testid="unit-change-button" className="outlined">
+            Switch to { unit === 'C' ? 'Fahrenheit' : 'Celsius' }
           </button>
         </section>
       </div>
@@ -96,10 +105,10 @@ const WeatherList = () => {
           {favoriteCities.map((weather) => (
             <tr key={weather.id}>
               <td>{weather.city}</td>
-              <td>{weather.temperature}</td>
+              <td>{ unit ==='C' ? `${weather.temperature}º ${unit}` : `${(weather.temperature * 9/5) + 32}º ${unit}`}</td>
               <td>{weather.description}</td>
               <td>
-                <button onClick={() => handleRenoveFavorite(weather)}>Remove</button>
+                <button onClick={() => handleRemoveFavorite(weather)}>Remove</button>
               </td>
             </tr>
           ))}
@@ -111,3 +120,5 @@ const WeatherList = () => {
 };
 
 export default WeatherList;
+
+//`Fahrenheit = (Celsius * 9/5) + 32.`
